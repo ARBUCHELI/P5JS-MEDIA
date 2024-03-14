@@ -25,3 +25,139 @@ video play!
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+* Loading and Drawing Images
+----------------------------
+7 min
+Unlike the primitive shapes we’ve drawn so far, media, like images, are considered external assets. To include them in our sketches, we will need to load them using special, built-in 
+p5.js functions.
+
+To load an image, use the loadImage() function. It requires one argument—the path to the image in your working directory.
+
+img = loadImage('imageName.jpg');
+
+The loadImage() function returns a p5.js Image element. Saving it to a variable lets us reuse the loaded image as many times as we want.
+
+After loading an image, we use the image() function to draw it. The function requires three arguments: the p5.js Image element and the x and y positions where the image should be drawn on 
+the canvas.
+
+//Draw img to the top left corner of the canvas
+image(img, 0, 0);
+
+Optionally, the image() function can take other arguments. We can also resize the drawn image to a certain width and height, as follows:
+
+let drawnWidth = 100;
+let drawnHeight = 100;
+image(img, 0, 0, drawnWidth, drawnHeight);
+
+We can also add an additional four arguments to draw a cropped region of the image—check out the p5.js documentation to learn more.
+
+You can also load and draw animated GIFs into the canvas using loadImage() and image(). To have them animate, you specifically need to put them inside the draw() loop. They’re essentially 
+multiple images packed into one, so calling image() in the draw() loop will draw the latest frame of the GIF, allowing it to animate.
+
+draw() {
+  image(myAnimatedGIF, 0, 0);
+}
+
+Because drawing an image requires it to be completely loaded, it’s important to note how and when these functions are called.
+
+Loading images takes time. In most cases, the loadImage() function won’t finish loading an image before the next lines of code are run—including any code that is supposed to draw the 
+image.
+
+Sometimes this is OK, but it can also potentially lead to unintended behavior. Later, we’ll learn to work around this problem by having more control over the loading of the images.
+
+* Instructions
+--------------
+Checkpoint 1 Passed
+1.
+In the setup() function, load an image with the path given by imagePath. Save the loaded image to the img variable.
+
+
+Hint
+The syntax for loading an external image is:
+
+variableName = loadImage('imageName.jpg');
+
+Checkpoint 2 Passed
+2.
+In the draw() function after the line that draws the background color, draw the image at the top left corner of the canvas.
+
+
+Hint
+The syntax for drawing an image at a certain x, y position on the canvas is:
+
+image(img, x, y);
+
+The top left corner of the canvas is given by the coordinates (0, 0).
+
+Checkpoint 3 Passed
+3.
+The image is cut off—we only see the top left piece of it!
+
+Modify your image() function so that the image is scaled to the width and height of the canvas.
+
+
+Hint
+Remember that you can get the width and height of the canvas from built-in p5.js variables, width and height.
+
+You can also see the width and height by looking at the parameters given to the createCanvas() function.
+
+When supplied with values for width and height, the image() function lets you draw a scaled image to the canvas, as follows:
+
+image(img, x, y, width, height);
+
+sketch.js
+---------
+let img;
+let imagePath = 'https://static-assets.codecademy.com/Courses/Learn-p5/media/cutePuppy.jpg';
+
+function setup() {
+  createCanvas(300, 400);
+  //Load image here:
+  img = loadImage(imagePath);
+}
+
+function draw() {
+  background(220);
+  //Draw image here:
+  image(img, 0, 0, width, height);
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
