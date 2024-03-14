@@ -1,0 +1,27 @@
+# IMAGES AND VIDEOS
+-------------------
+
+* Introduction to Images and Videos
+-----------------------------------
+<1 min
+So far, we’ve learned to create dynamic p5.js sketches using only shapes and colors.
+
+But, just like how you might add external images or videos onto a normal webpage, you can also use the p5.js library to incorporate external images or videos directly into the canvas!
+
+By the end of this lesson, you will be able to:
+
+	. Load and draw external images into the canvas
+
+	. Display external videos in the canvas
+
+	. Add filters effects across images and the canvas
+
+	. Read and manipulate the pixels within the canvas, as well as in images and videos
+
+* Instructions
+--------------
+Explore the p5.js sketch to the right. You’ll see that it uses a still image, an animated GIF image, and a video to create a multi-media collage. Click anywhere on the sketch to watch the 
+video play!
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
