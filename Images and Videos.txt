@@ -219,6 +219,153 @@ function setup() {
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+* Videos
+--------
+8 min
+Now that we can add images into the canvas let’s learn how to add another major type of media: videos!
+
+To create a p5.js video element, use the createVideo() function. It requires the video file’s path in your working directory. Here, we’ll use a video with the .mp4 format, which is a 
+video file format that’s well-supported across most browsers.
+
+let video;
+video = createVideo('myVideo.mp4');
+
+As with images, we can store video elements as variables. Typically, we’ll do this in a place like the preload() function so that we can use it later on in our sketch.
+
+To play a video, you can use the .play() method:
+
+video.play();
+
+Leveraging HTML and JavaScript’s existing support for videos, the createVideo() function displays an HTML video element on the page, but not within the sketch itself.
+
+To display the video directly within the p5 sketch, we can reuse the image() function from before:
+
+image(video, 0, 0);
+
+It may be confusing to use a function called ‘image’ to draw videos—but it makes sense when we think of a video as a sequence of images. When called, the image() function draws the 
+current frame of the video on the canvas. When placed in the draw() loop, we can create the illusion of a video playing, frame-by-frame.
+
+Like with drawing images, you can resize the drawn video by adding two more parameters:
+
+let drawnWidth = 100;
+let drawnHeight = 100;
+image(video, 0, 0, drawnWidth, drawnHeight);
+
+To hide the original HTML video element, we can use the .hide() method:
+
+video.hide()
+
+This makes the original video invisible—but it doesn’t delete it! You’ll still be able to hear the video’s sound unless you turn off its volume. We’ll get to that in the next exercise!
+
+Note that the .hide() method will hide the video drawn on the canvas as well unless at any point you play the video. Until then, no video frames will draw to the canvas.
+
+* Instructions
+--------------
+Checkpoint 1 Passed
+1.
+In the preload() function, load a video with the path given by the variable videoPath, and save it to the variable video.
+
+Run the code to see the HTML video element appear on the page.
+
+
+Hint
+To load a video, follow the following syntax:
+
+let videoPath = 'myVideo.mp4';
+video = createVideo(videoPath);
+
+Checkpoint 2 Passed
+2.
+In the mouseClicked() function, play the video. This video file has no sound, so you shouldn’t expect to hear anything!
+
+After running the code, you should be able to play the video by clicking anywhere on the sketch.
+
+
+Hint
+To play a video, use the following syntax:
+
+video.play();
+
+Checkpoint 3 Passed
+3.
+In the draw() loop, display the video onto the canvas. You can position or scale the drawn video however you choose.
+
+Note that for the drawn video to appear, you must draw it to the canvas after the background() function is called.
+
+
+Hint
+To draw a video onto a canvas, use the image() function:
+
+image(video, x, y, width, height);
+
+Remember that width and height are optional parameters that scale what you’re drawing to the canvas to a certain dimension.
+
+Checkpoint 4 Passed
+4.
+Back in the setup() function, hide the original HTML video element.
+
+Note that now, the video will not display on the canvas until you make it play.
+
+
+Hint
+To hide the original HTML video element created by the createVideo() function, use the following syntax:
+
+video.hide();
+
+sketch.js
+---------
+let video;
+let videoPath = 'https://static-assets.codecademy.com/Courses/Learn-p5/media/beach.mp4';
+
+function preload(){
+  //TODO: Load video here
+  video = createVideo(videoPath);
+}
+
+function setup() {
+  createCanvas(400, 400);
+  //TODO: Hide video here
+  video.hide();
+}
+
+function draw() {
+  background(220);
+  //TODO: Display video here
+  image(video, 0, 0, width, height);
+}
+
+function mouseClicked() {
+  //TODO: Play video here
+  video.play();
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
