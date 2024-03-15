@@ -124,6 +124,125 @@ function draw() {
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+* The Preload Function
+----------------------
+6 min
+If you’ve ever web-surfed with poor internet connection—you know firsthand that images can take a while to show up, even if other parts of the page load just fine.
+
+This same behavior applies to p5.js sketches. Loading images takes time, and p5.js will typically move onto other code before an image fully loads.
+
+In the last exercise, this was okay because we drew our image in the infinitely looping draw() function. Even if the image wasn’t loaded when the image() function was first called, it 
+eventually could be drawn to the canvas.
+
+But sometimes, it’s important that images are completely loaded before we attempt to draw them. For example, check out what happens when we try to load and draw the image within the 
+setup() function:
+
+A diagram that demonstrates what happens when you load and try to draw an image in the setup() function. The image never ends up drawing to the canvas.
+
+Here, the image never shows up! By the time the image() function is called, the image isn’t fully loaded yet. The setup() function runs only once, so the image is not eventually drawn.
+
+To solve problems like this, p5.js includes the preload() function. Like the setup() and draw() functions, it’s a special function to hold specific kinds of code for our p5.js sketch. 
+Specifically, the preload() function is meant for code that loads external assets, like the loadImage() function.
+
+let img;
+
+function preload(){
+    img = loadImage('myImage.png');
+}
+
+The p5.js library calls the preload() function before the setup() and draw() functions, which run only once all assets in preload() are entirely loaded.
+
+let img;
+
+function preload(){
+  //This runs first.
+  img = loadImage('myImage.png');
+
+function setup(){
+  //This runs once when all assets in preload() are completely loaded.
+}
+function draw(){
+  //This loops infinitely after setup() finishes.
+}
+
+Let’s take a look at our previous scenario, now with the preload() function!
+
+A diagram explaining the preload function. It walks through how p5.js will wait to load any images in preload() completely before moving onto the setup and draw functions. The image 
+successfully draws to the canvas.
+
+Our (very adorable) image now draws to the canvas! This is because p5.js waits to run the code in the setup() function only after the image is fully loaded.
+
+* Instructions
+--------------
+Checkpoint 1 Passed
+1.
+The code currently attempts to draw the image in the setup() function. Run the code to observe how the image does not properly draw to the canvas.
+
+Checkpoint 2 Passed
+2.
+Add a preload() function to sketch.js.
+
+
+Hint
+The syntax for a preload() function is:
+
+function preload(){
+  //Load images here
+}
+
+Checkpoint 3 Passed
+3.
+Move the line of code that loads the image from the setup() function, and into the preload() function you just added. Run the code—you should now see the image!
+
+
+Hint
+The line containing the loadImage() function is what loads the image.
+
+You don’t need to modify the way the loadImage() call is written—just move the existing code to inside the preload() function.
+
+sketch.js
+---------
+let img;
+
+function preload(){
+  img = loadImage(imagePath);
+}
+
+let imagePath = 'https://static-assets.codecademy.com/Courses/Learn-p5/media/cutePuppy.jpg';
+
+function setup() {
+  createCanvas(300, 400);
+  
+  background(220);
+  image(img, 0, 0, 300, 400);
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
