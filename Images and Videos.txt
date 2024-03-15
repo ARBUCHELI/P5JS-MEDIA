@@ -341,6 +341,151 @@ function mouseClicked() {
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+* Video Options
+---------------
+7 min
+Now that we can add videos to the canvas let’s take a look at some extra options p5.js gives us to control video options and playback. These options also build off of HTML and 
+JavaScript’s existing support for video playback.
+
+We already learned how to use the .play() method to play a video. In actuality, there is another way to get a video to play: the .loop() method. Whereas the .play() method only plays a 
+video once, the .loop() method will play a video and loop it infinitely.
+
+video.loop();
+
+Because of how these methods work behind-the-scenes in JavaScript, there are some quirks that can lead to common problems. One of them is that calling .play() or .loop() way too many 
+times, such as in every iteration of the draw() loop, can cause errors. In general, it’s best to call them in setup(), or call them in response to user input, like mouse clicks.
+
+To stop a playing or looping video, use the .stop() method.
+
+video.stop();
+
+The .stop() method stops the video and returns it to the starting frame of the video. To pause the video at the current frame—so that you can later resume it where you left off—use the 
+.pause() method:
+
+video.pause();
+
+To change the volume of the video’s sound, use the .volume() method. It takes in a decimal number ranging from 0 to 1, with 0 being no volume and 1 being maximum volume.
+
+video.volume(0); // Mutes the sound
+video.volume(1); // Plays sound at max volume
+video.volume(0.5); //Plays sound at half volume
+
+* Instructions
+--------------
+Checkpoint 1 Passed
+1.
+In this example, we’ll use these video methods to help build a Vlog site for Codey: Codecademy’s unofficial mascot!
+
+Parts of the site are created already. Using p5.js, there is already a video loaded and drawn to the canvas with the image() function, but remember that the video frame will not show up 
+unless the video starts playing.
+
+Using HTML and CSS, Codey has also created a title, a page background, and buttons for video controls. The buttons, when pressed, trigger prewritten functions—your job is to help Codey 
+fill them in with p5.js video control code!
+
+First, in the pressPlayButton() function, add code that plays the video when the play button is pressed.
+
+
+Hint
+Hint: To play a video, use the .play() method:
+
+video.play();
+
+Remember to place this code inside the provided pressPlayButtton() function.
+
+Checkpoint 2 Passed
+2.
+In the pressPauseButton() function, add code that pauses the video when the pause button is pressed.
+
+
+Hint
+Hint: To pause a video, use the .pause() method:
+
+video.pause();
+
+Remember to place this code inside the provided pressPauseButton() function.
+
+Checkpoint 3 Passed
+3.
+In the pressToggleVolumeButton() function, fill in code to turn the volume on and off when the Toggle Volume button is pressed. When the volume is on, it should be at maximum value.
+
+
+Hint
+To set the volume for a video, use the .volume() method:
+
+video.volume(0); //Turns sound off
+video.volume(1); //Turns sound to max volume
+
+sketch.js
+---------
+let video;
+let isVolumeOn = true;
+let videoPath = 'https://static-assets.codecademy.com/Courses/Learn-p5/media/codeyVlog.mp4';
+
+function preload(){
+  video = createVideo(videoPath);
+}
+
+function setup() {
+  createCanvas(480, 270);
+  //Creates a background with a play symbol
+  background(0);
+  triangle(215, 110, 275, 140, 215, 170);
+  //Hides the original HTML video element
+  video.hide();
+}
+
+function draw() {
+  image(video, 0, 0, 480, 270);
+}
+
+function pressPlayButton() {
+  //TODO: Play video here:
+  video.play();
+}
+
+function pressPauseButton() {
+  //TODO: Pause video here:
+  video.pause();
+}
+
+function pressToggleVolumeButton() {
+  if (isVolumeOn) {
+    //TODO: Turn volume off here:
+    video.volume(0);
+  } else {
+    //TODO: Turn volume on here:
+    video.volume(1);
+  }
+  isVolumeOn = !isVolumeOn;
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
