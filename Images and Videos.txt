@@ -896,6 +896,184 @@ function pressToggleVolumeButton() {
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+* Manipulating the Pixels Array
+-------------------------------
+12 min
+Once we have the pixels array, we need to know how to read and write to it. That requires correctly indexing into it to get the color values for each pixel.
+
+Because each pixel has four color values—starting with red—we can use the following equation to find the index of the red value for a pixel at location (x,y), on a canvas that’s width 
+pixels wide.
+
+let indexOfRed = (x + y * width) * 4;
+
+Image or video elements have their own dimensions, accessed through the .width and .height properties. Accordingly, their equations will be slightly different:
+
+let indexOfRedForImage = (x + y * img.width) * 4;
+let indexOfRedForVideo = (x + y * video.width) * 4;
+
+In this example, we’ll access the .pixels array of an image. With the index of the red value, we can then get each color value, keeping in mind the R-G-B-A sequence.
+
+let red = img.pixels[indexOfRed];
+let green = img.pixels[indexOfRed + 1];
+let blue = img.pixels[indexOfRed + 2];
+let alpha = img.pixels[indexOfRed + 3];
+
+To set a new color for that pixel at (x,y), set its RGBA elements in the .pixels array to new values.
+
+img.pixels[indexOfRed] = 255; // Red
+img.pixels[indexOfRed + 1] = 0; // Green
+img.pixels[indexOfRed + 2] = 0; // Blue
+img.pixels[indexOfRed + 3] = 255; // Alpha
+img.updatePixels();
+
+Above, we set the pixel to red, i.e. [255, 0 , 0, 255]. Again, we must call the .updatePixels() method (or updatePixels() function, if we’re manipulating the canvas) to reflect changes.
+
+Most likely, we’ll want to manipulate many pixels—that’s what the pixels array is designed for!
+
+//Double "for" loop to iterate through pixels, row by row:
+
+let stepSize = 1;
+//Loop through rows
+for (let y = 0; y < img.height; y += stepSize){
+  //Loop through columns
+  for (let x = 0; x < img.width; x +=  stepSize){
+    //Get index # of red value for pixel
+    let indexOfRed = (x + y * img.width) * 4;
+    //Set every pixel to black
+    img.pixels[indexOfRed] = 0; // Red
+    img.pixels[indexOfRed + 1] = 0; // Green
+    img.pixels[indexOfRed + 2] = 0; // Blue
+    img.pixels[indexOfRed + 3] = 255; // Alpha
+  }
+}
+img.updatePixels();
+
+Here, we used a double for loop, bounded by the image’s width and height, to iterate through every pixel in the image, row-by-row. By setting its RGBA values accordingly, each pixel is 
+set to the color black, i.e. [0, 0, 0, 255]. Depending on the application, you might want to go through every couple of pixels, instead of every single one. To do that, you can increase 
+the value of the stepSize variable.
+
+We called the .updatePixels() method outside and after this loop so that we can update all of the changes we made to .pixels with a single call. If we call it inside the loop, we might crash our sketch!
+
+* Instructions
+--------------
+Checkpoint 1 Passed
+1.
+Codey still needs your help to create their staticky video effect! You’ll pick up close to where you left off. You can observe that the only thing new is a double for loop that set up to 
+iterate through every pixel in the video.
+
+Inside the double for loops, calculate the index of the red value for the given x, y pixel. Use the formula mentioned above, and set it to a variable for later use.
+
+
+Hint
+The formula for getting the red value of a given x, y pixel in a video is:
+
+(x + y * video.width) * 4
+
+Checkpoint 2 Passed
+2.
+Next, we’ll start to create a staticky, grainy effect, which is formed by setting the green values of all pixels in the video to a random number.
+
+Inside the loops, using the index you stored for the red value, index into the .pixels array to set the green value of the given x, y pixel to random(100).
+
+
+Hint
+Remember that having the index of the red element for a given x,y pixel will let us access that pixel’s red, green, blue, and alpha values as elements in the .pixels array, as follows:
+
+video.pixels[indexOfRed]; //Red value for the pixel
+video.pixels[indexOfRed + 1]; //Green value for the pixel
+video.pixels[indexOfRed + 2]; //Blue value for the pixel
+video.pixels[indexOfRed + 3]; //Alpha value for the pixel
+
+Setting the value of these color elements works like setting the values of any other array in JavaScript.
+
+video.pixels[someIndex] = 255;
+
+Checkpoint 3 Passed
+3.
+Finally, after the double for loop finishes, and before the video is drawn to the canvas, call the .updatePixels() method on the video element.
+
+Run the sketch and press the “Play” button on the page to see Codey’s staticky filter in action!
+
+
+Hint
+Remember the syntax for updating the pixels on a video element:
+
+video.updatePixels();
+
+Additionally, make sure to call this outside the last curly brackets of the double for loop!
+
+sketch.js
+---------
+let video;
+let videoPath = 'https://static-assets.codecademy.com/Courses/Learn-p5/media/UFO.mp4';
+
+function preload(){
+  video = createVideo(videoPath);
+}
+
+function setup() {
+  //Set pixel density to 1
+  pixelDensity(1);
+  createCanvas(480, 270);
+  //Creates a background with a play symbol
+  background(0);
+  triangle(215, 110, 275, 140, 215, 170);
+  //Hides the original HTML video element
+  video.hide();
+}
+
+function draw() {
+  //Load video pixels
+  video.loadPixels();
+  //Iterate through all pixels in the video
+  let stepSize = 1;
+  for (let y = 0; y < video.height; y += stepSize){
+    for (let x = 0; x < video.width; x += stepSize){
+      //TODO: Manipulate pixels array
+      let indexOfRed = (x + y * video.width) * 4;
+
+      video.pixels[indexOfRed + 1] = random(100); 
+    }
+  }
+  //TODO: Update the pixels in the video
+  video.updatePixels();
+  //Draw the video to the canvas
+  image(video, 0, 0, 480, 270);
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
