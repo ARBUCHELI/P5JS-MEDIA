@@ -749,6 +749,182 @@ function windowResized() {
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+* Loading the Pixels Array
+--------------------------
+6 min
+As mentioned earlier, pixel density can affect how you read the pixels array. Since different monitors have different pixel densities, let’s make things uniform by working with a pixel 
+density of 1. To do this, use the pixelDensity() function.
+
+function setup(){
+  //Return the current pixel density
+  pixelDensity(); 
+  //Set the pixel density to 1
+  pixelDensity(1); 
+}
+
+We could omit this step, but that’ll make some of the math harder to work with later on!
+
+One quirk of setting a different pixel density using the pixelDensity() function is that it erases everything you drew on the canvas before calling it. In most cases, it’s a good idea to 
+call it first thing in the setup() function, before any other code.
+
+function setup() {
+  // Set pixel density first
+  pixelDensity(1);
+  // The rest of the code can follow:
+  createCanvas(400, 400)
+  background(220);
+}
+
+Before accessing the pixels array, there’s one more step: loading the pixels with the loadPixels() function. loadPixels() loads the pixels in a canvas, populating the built-in pixels 
+variable.
+
+//Load the canvas pixels
+loadPixels();
+//Print the canvas' pixels array
+console.log(pixels); 
+
+Just like with get() and set(), you can also access pixels for individual images or videos. To do this, use the .loadPixels() method, which will populate the .pixels property on the image 
+or video element.
+
+//Load image pixels
+img.loadPixels(); 
+//Prints the image's pixels array
+console.log(img.pixels); 
+
+Note that when dealing with videos (or animated GIFs), it’s better to call the loadPixels() function in the draw() loop—you likely want to work with the latest frame.
+
+function draw(){
+  //Load video pixels of latest frame
+  video.loadPixels(); 
+  //Prints the video's pixels array
+  console.log(video.pixels); 
+}
+
+Loading the data in the pixels array takes time—which can explain why the pixels array isn’t just available by default. In fact, the get() and set() functions both load the pixels every 
+single time they’re called—which is why calling them a lot slows down the sketch significantly.
+
+In contrast, accessing the entire pixels array requires loading pixels just once—which speeds up the process a lot and will allow us to do more wide-scale manipulations!
+
+Still, keep in mind that working with the pixels array can potentially slow down your sketch, especially if you:
+
+	. Load and manipulate the pixels array of high-resolution images or videos
+
+	. Load and manipulate the pixels array in the draw() loop.
+
+	. Print the pixels array to the console (we did it as a demonstration above, but this can really affect performance!)
+
+Doing any of these alone may not cause problems, but you can troubleshoot laggy p5.js sketches by being mindful of the above.
+
+* Instructions
+--------------
+Checkpoint 1 Passed
+1.
+In honor of Extraterrestrial Abductions Day, Codey wants to add a staticky, custom filter effect on their Vlog! In the p5.js code, you can see the code that makes up Codey’s Vlog.
+
+The code that controls video playback has been moved to a separate file, videoOptions.js, to keep sketch.js as simple as possible.
+
+You’ll eventually be in charge of adding this effect by reading and manipulating the .pixels array on the video element. Right now, we’ll prepare this array so we can work with it later 
+in the next exercise.
+
+First, in setup(), set the pixel density in the sketch to 1. Make sure to do this at the beginning of the setup() function, before another code is called.
+
+
+Hint
+To set the pixel density to a value, use the following syntax:
+
+pixelDensity(value);
+
+Setting pixel density can erase what has been previously drawn to the canvas—to avoid this problem, call this function at the top of the setup() function.
+
+Checkpoint 2 Passed
+2.
+In the draw() loop, before the video is drawn, load the pixels of the video.
+
+You won’t see any visible changes to the sketch, but this prepares the pixels array to be worked with in the next exercise!
+
+
+Hint
+To load pixels for a video element, use the .loadPixels() method on the element:
+
+sketch.js
+---------
+let video;
+let videoPath = 'https://static-assets.codecademy.com/Courses/Learn-p5/media/UFO.mp4';
+
+function preload(){
+  video = createVideo(videoPath);
+}
+
+function setup() {
+  //TODO: Set pixel density to 1
+  pixelDensity(1);
+  createCanvas(480, 270);
+  //Creates a background with a play symbol
+  background(0);
+  triangle(215, 110, 275, 140, 215, 170);
+  //Hides the original HTML video element
+  video.hide();
+}
+
+function draw() {
+  //TODO: Load video pixels
+  video.loadPixels();
+  //Draw the video to the canvas
+  image(video, 0, 0, 480, 270);
+}
+
+videoOptions.js
+---------------
+let isVolumeOn = true;
+
+function pressPlayButton() {
+  video.play();
+}
+
+function pressPauseButton() {
+  video.pause();
+}
+
+function pressToggleVolumeButton() {
+  if (isVolumeOn) {
+    video.volume(0);
+  } else {
+    video.volume(1);
+  }
+  isVolumeOn = !isVolumeOn;
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
