@@ -1,0 +1,46 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+
+body {
+  overflow-x: hidden; /* Disables horizontal overflow */
+  overflow-y: hidden; /* Disables vertical overflow */
+  background-color: #ffcc5c;
+}
+
+#video-container {
+  position: absolute !important;
+  top: 300 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 70% !important;
+  height: 70% !important;
+}
+
+#defaultCanvas0 {
+  display: block !important;
+  margin: auto !important;
+}
+
+h1 {
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+  margin-top: 1em;
+  color: #674d3c;
+  font-size: 4em;
+}
+
+p {
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+  font-size: 1.5em;
+}
